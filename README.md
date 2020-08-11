@@ -1,6 +1,28 @@
 # Caveman
 
-Caveman debugging drop-in for Elixir projects.
+Caveman debugging drop-in for Elixir projects. Provides macros for tracing to
+stderr both in Elixir and Erlang source files.
+
+## Usage
+
+## Erlang
+
+To debug Erlang files:
+
+```erlang
+-include_lib("deps/caveman/caveman.hrl").
+
+do_something(Param1, Param2) ->
+  ?Hello([Param2, Local1]),
+
+  . . .
+
+  ?Hello,
+```
+
+The `?Hello/1` macro accepts a list of local variables to be included in the
+trace checkpoint. It writes to `standard_error` the mfa and line number, along
+with the names and values of the variables provided.
 
 ## Installation
 
