@@ -5,6 +5,28 @@ stderr both in Elixir and Erlang source files.
 
 ## Usage
 
+### Elixir
+
+To debug Elixir files:
+
+```elixir
+  use Caveman
+
+  def do_something(Param1, Param2) ->
+    hello()
+
+    hello("gigo", pretty: false)
+```
+
+The `hello/2` macro writes a debugging checkpoint through `Logger`. Each
+checkpoint provides mfa and line number, together with the caller's `binding()`.
+An optional term may be provided to also be included in the checkpoint.
+
+By default, the variable list is formatted with the `inspect/2` option
+`pretty: true`. Additional `Inspect.Opts` may be provided. In the event that
+there are no bound variables and no argument is provided, only the mfa and
+line are logged.
+
 ## Erlang
 
 To debug Erlang files:
