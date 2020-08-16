@@ -6,7 +6,8 @@ defmodule Caveman do
   defmacro __using__(_opts) do
     quote do
       require Logger
-      require Caveman
+      import Kernel, except: [hello: 2, hello: 1, hello: 0]
+      import Caveman, only: [hello: 2, hello: 1, hello: 0]
     end
   end
 
