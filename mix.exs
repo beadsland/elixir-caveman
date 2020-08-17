@@ -22,6 +22,9 @@ defmodule Caveman.MixProject do
   defp deps do
     [
       {:dialyxir, "~> 1.0", only: [:dev, :test], runtime: false},
+      {:elixir, git: "https://github.com/elixir-lang/elixir.git",
+                dev: [:test], optional: true, runtime: false,
+                compile: "echo", app: false, tag: "v1.10.4"},
       {:earmark, "~> 1.4.9 ", only: [:test]}
     ]
   end

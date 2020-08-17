@@ -10,17 +10,13 @@ defmodule CavemanTest.Readme.Kernel.ErlangTest do
   # Confirm instructions included for Erlang Kernel drop-in
   ###
 
-  def get_erlang_kernel_dropin() do
-    Common.get_readme_code "erlang", "-ifdef(CAVEMAN)."
-  end
-
   test "parse README for Erlang Kernel drop-in" do
-    {:ok, _str} = get_erlang_kernel_dropin()
+    {:ok, _str} = Common.get_erlang_kernel_dropin()
   end
 
   def compile_erlang_preprocessor_pattern(module, is_stub \\ true) do
     module = Atom.to_string module
-    {:ok, str} = get_erlang_kernel_dropin()
+    {:ok, str} = Common.get_erlang_kernel_dropin()
 
     str = """
       %% coding: latin-1

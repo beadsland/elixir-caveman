@@ -73,6 +73,18 @@ in `mix.exs`. Make sure `project` has a `deps` key.
 
 Documentation can be generated with [ExDoc](https://github.com/elixir-lang/ex_doc).
 
+## Dependencies / Unit Testing
+
+The `test` folder for this project includes tests of the drop-in code blocks
+that appear in the next section of this README file, including the additional
+rules to be included in the `Makefile` of the Elixir language project when
+using Caveman with same.
+
+To facilitate these tests, the `elixir-lang` repository is included among the
+test environment dependencies for Caveman. This can add upwards of 60 Mb to
+the `deps` folder. These files can be modified and overwritten in the course
+of unit tests, and should not be relied upon as a working copy of Elixir.
+
 ## Integration with Elixir Kernel
 
 To use Caveman when debugging the Elixir language project, first add it as a

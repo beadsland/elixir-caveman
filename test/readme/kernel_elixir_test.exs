@@ -7,27 +7,15 @@ defmodule CavemanTest.Readme.Kernel.ElixirTest do
   import ExUnit.CaptureLog
 
   ###
-  # Confirm instructions included for Makefile drop-in
-  ###
-
-  test "parse README for Makefile drop-in" do
-    {:ok, _str} = Common.get_readme_code "makefile", "default: compile caveman"
-  end
-
-  ###
   # Confirm instructions included for Elixir Kernel drop-in
   ###
 
-  def get_elixir_kernel_dropin() do
-    Common.get_readme_code "elixir", "defmacro hello"
-  end
-
   test "parse README for Elixir Kernel drop-in" do
-    {:ok, _str} = get_elixir_kernel_dropin()
+    {:ok, _str} = Common.get_elixir_kernel_dropin()
   end
 
   def get_compiler_case_pattern() do
-    {:ok, str} = get_elixir_kernel_dropin()
+    {:ok, str} = Common.get_elixir_kernel_dropin()
     {:ok, quot} = Code.string_to_quoted str
     get_compiler_case_pattern quot
   end

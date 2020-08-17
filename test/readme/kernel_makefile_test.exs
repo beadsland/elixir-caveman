@@ -9,7 +9,7 @@ defmodule CavemanTest.Readme.Kernel.MakefileTest do
   ###
 
   test "parse README for Makefile drop-in" do
-    {:ok, _str} = Common.get_readme_code "makefile", "default: compile caveman"
+    Common.get_makefile_kernel_dropin()
   end
 
 end

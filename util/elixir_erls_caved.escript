@@ -1,8 +1,10 @@
 #!/usr/bin/env escript
 %% -*- erlang -*-
 
-main(_) ->
-  Fileglob = filename:join(["lib", "elixir", "src", "*.erl"]),
+main([]) -> main(["."]);
+
+main([Path]) ->
+  Fileglob = filename:join([Path, "lib", "elixir", "src", "*.erl"]),
   Erls = filelib:wildcard(Fileglob),
   Caved = lists:filter(fun (X) ->
     {ok, Bin} = file:read_file(X),

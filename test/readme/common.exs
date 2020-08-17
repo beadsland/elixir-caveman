@@ -2,7 +2,19 @@ defmodule CavemanTest.Readme.Common do
 
   require Logger
 
-  def get_readme_code(class, substr) do
+  def get_erlang_kernel_dropin() do
+    get_readme_code "erlang", "-ifdef(CAVEMAN)."
+  end
+
+  def get_elixir_kernel_dropin() do
+    get_readme_code "elixir", "defmacro hello"
+  end
+
+  def get_makefile_kernel_dropin() do
+    get_readme_code "makefile", "default: compile caveman"
+  end
+
+  defp get_readme_code(class, substr) do
     {:ok, ast, _} = File.read!("README.md") |> EarmarkParser.as_ast()
     ast = ast
       |> Enum.filter(fn x -> elem(x, 0) == "pre" end)
