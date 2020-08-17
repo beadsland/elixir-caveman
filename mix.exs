@@ -21,6 +21,7 @@ defmodule Caveman.MixProject do
   # Run "mix help deps" to learn about dependencies.
   defp deps do
     [
+      {:dialyxir, "~> 1.0", only: [:dev, :test], runtime: false},
       {:earmark, "~> 1.4.9 ", only: [:test]}
     ]
   end

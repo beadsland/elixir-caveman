@@ -20,10 +20,12 @@ defmodule Caveman do
   `pretty: true`. Additioal `Inspect.Opts` may be provided. In the event that
   there are no bound variables and no argument is provided, only the mfa and
   line are logged.
+
+  Will raise an `ArgumentError` if opts are not provided as a Kewyord list.
   """
-  @spec hello() :: :ok
-  @spec hello(what :: term()) :: :ok
-  @spec hello(what :: term(), opts :: Inspect.Opts.t()) :: :ok
+  @spec hello() :: Macro.t()
+  @spec hello(what :: term()) :: Macro.t()
+  @spec hello(what :: term(), opts :: keyword()) :: Macro.t() | none()
   defmacro hello(what \\ nil, opts \\ []) do
     quote bind_quoted: [what: what, opts: opts] do
       Caveman.keyword! opts
