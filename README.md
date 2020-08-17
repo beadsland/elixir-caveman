@@ -151,7 +151,7 @@ completed.
 
 ### Elixir Kernel—Makefile
 
-Finally, to wrap everything up, add rules to the Elixir project `Makefile` as 
+Finally, to wrap everything up, add rules to the Elixir project `Makefile` as
 follows (extending the original rule `default: compile`):
 
 ```makefile
@@ -160,24 +160,25 @@ default: compile caveman
 LIBELIXIR := lib/elixir
 DEPSCAVEMAN := $(LIBELIXIR)/deps/caveman
 CAVESENTINEL := $(LIBELIXIR)/ebin/.caveman.sentinel
+TOUCH := $(DEPSCAVEMAN)/util/touch.escript
 
 caveman: $(LIBELIXIR)/ebin/Elixir.Caveman.beam $(DEPSCAVEMAN)/caveman.hrl
 
 $(LIBELIXIR)/ebin/Elixir.Caveman.beam: $(DEPSCAVEMAN)/lib/caveman.ex
 	$(Q) cd $(LIBELIXIR) && ../../bin/mix deps.compile
 	$(Q) $(ELIXIRC) "$(DEPSCAVEMAN)/lib/*.ex" -o $(LIBELIXIR)/ebin
-	$(Q) touch $(LIBELIXIR)/lib/kernel.ex
+	$(Q) $(TOUCH) $(LIBELIXIR)/lib/kernel.ex
 	$(Q) $(MAKE) $(KERNEL)
 
 $(DEPSCAVEMAN)/caveman.hrl $(DEPSCAVEMAN)/lib/caveman.ex: $(CAVESENTINEL)
 	$(Q) echo "==> caveman (get)"
 	$(Q) cd $(LIBELIXIR) && ../../bin/mix deps.get
-	$(Q) touch $(DEPSCAVEMAN)/caveman.hrl $(DEPSCAVEMAN)/lib/caveman.ex \
-	           $(shell $(DEPSCAVEMAN)/util/elixir_erls_caved.escript)
+	$(Q) $(TOUCH) $(DEPSCAVEMAN)/caveman.hrl $(DEPSCAVEMAN)/lib/caveman.ex \
+	              $(shell $(DEPSCAVEMAN)/util/elixir_erls_caved.escript)
 	$(Q) $(MAKE) erlang ERL_COMPILER_OPTIONS="{d, 'CAVEMAN'}"
 
 $(CAVESENTINEL):
-	$(Q) touch $(CAVESENTINEL)
+	$(Q) echo > $(CAVESENTINEL)
 ```
 
 Again, we'll want to restore the `Makefile`, removing these added rules, when
