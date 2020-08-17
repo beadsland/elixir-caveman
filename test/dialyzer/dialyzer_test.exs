@@ -38,18 +38,20 @@ defmodule CavemanTest.DialyzerTest do
     case get_seed_memo() do
       {:ok, {stdout, status}} -> {stdout, status}
       :undefined ->
-        IO.puts("\nRunning dialyzer...")
+        IO.write("\nRunning dialyzer...")
         task = ["dialyzer", "--quiet"]
         {stdout, status} = System.cmd "mix", task, stderr_to_stdout: true
         set_seed_memo({stdout, status})
 
-        color = case status do
-          0 -> IO.ANSI.green
-          1 -> IO.ANSI.red
-          2 -> IO.ANSI.yellow
+        if stdout != "" do
+          color = case status do
+            0 -> IO.ANSI.green
+            1 -> IO.ANSI.red
+            2 -> IO.ANSI.yellow
+          end
+          stderr = ["\n", color, stdout, IO.ANSI.reset]
+          IO.write(:standard_error, stderr)
         end
-        stderr = [color, stdout, IO.ANSI.reset]
-        IO.puts(:standard_error, stderr)
 
         {stdout, status}
     end
