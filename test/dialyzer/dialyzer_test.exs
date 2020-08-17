@@ -5,8 +5,6 @@ defmodule CavemanTest.DialyzerTest do
   # Dialyzer errors
   ###
 
-  require Logger
-
   def seed_memo_filename do
     seed = ExUnit.configuration() |> Keyword.get(:seed)
     System.tmp_dir! |> Path.join("#{__MODULE__}.seed_memo_#{seed}")
