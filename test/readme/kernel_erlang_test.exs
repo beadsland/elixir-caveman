@@ -1,8 +1,6 @@
 defmodule CavemanTest.Readme.Kernel.ErlangTest do
   use ExUnit.Case
 
-  use Caveman
-
   Code.require_file "common.exs", __DIR__
   alias CavemanTest.Readme.Common
 
