@@ -1,6 +1,29 @@
 defmodule CavemanTest.Readme.Common do
 
-  require Logger
+  ###
+  # Work with elixir-lang project in deps and with Elixir build thereunder.
+  ###
+
+  def deps_path, do: ["deps", "elixir"] |> Path.join
+  def elixir_subpath, do: ["lib", "elixir"] |> Path.join
+
+  def revert_elixir_file(filename) do
+    {_stdout, 0} = cd_cmd! deps_path(), "git", ["co", filename]
+  end
+
+  def cd_cmd!(cdpath, cmd, args) when is_list(cdpath) do
+    cd_cmd!(Path.join(cdpath), cmd, args)
+  end
+
+  def cd_cmd!(cdpath, cmd, args) do
+    File.cd!(cdpath, fn ->
+      System.cmd cmd, args, stderr_to_stdout: true
+    end)
+  end
+
+  ###
+  # Extract code blocks from README file.
+  ###
 
   def get_erlang_kernel_dropin() do
     get_readme_code "erlang", "-ifdef(CAVEMAN)."
@@ -12,6 +35,10 @@ defmodule CavemanTest.Readme.Common do
 
   def get_makefile_kernel_dropin() do
     get_readme_code "makefile", "default: compile caveman"
+  end
+
+  def get_mixexs_kernel_dropin() do
+    get_readme_code "elixir", "use Mix.Project"
   end
 
   defp get_readme_code(class, substr) do
